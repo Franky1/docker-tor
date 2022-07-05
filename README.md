@@ -8,7 +8,7 @@ Tor Version: `0.4.7.8`
 
 Work in progress. Not yet tested.
 
-> last updated: 2022-06-23
+> last updated: 2022-07-05
 
 ## Resources
 
@@ -32,8 +32,9 @@ Work in progress. Not yet tested.
 
 ### Checking Tor Connection
 
-- _Pifall 1_: Tor Browser on Windows has different ports for **socks5** proxy:
-  - Ports `9150` and `9151`.
+- _Pifall 1_: Tor Browser on Windows has different port for **socks5** proxy:
+  - Port `9150` for the Tor Browser.
+  - If you install the Tor deamon on Windows, it still should be port `9050` if the default settings haven't been altered.
 - _Pifall 2_: You need `curl` with `socks5` proxy support.
   - On Windows you can use `cmder` shell.
     - <https://cmder.net/>
