@@ -1,6 +1,6 @@
 # docker-tor
 
-Docker Setup of local Tor Proxy for remote SSH access.
+Docker Setup of local TOR Proxy for remote SSH access.
 
 ## Status
 
@@ -8,7 +8,7 @@ Tor Version: `0.4.7.8`
 
 Work in progress. Not yet tested.
 
-> last updated: 2022-07-05
+> last updated: 2022-07-07
 
 ## Resources
 
@@ -34,7 +34,7 @@ Work in progress. Not yet tested.
 
 - _Pifall 1_: Tor Browser on Windows has different port for **socks5** proxy:
   - Port `9150` for the Tor Browser.
-  - If you install the Tor deamon on Windows, it still should be port `9050` if the default settings haven't been altered.
+  - If you install the Tor deamon on Windows, it should be port `9050` if the default settings haven't been altered.
 - _Pifall 2_: You need `curl` with `socks5` proxy support.
   - On Windows you can use `cmder` shell.
     - <https://cmder.net/>
@@ -52,3 +52,5 @@ curl --socks5 127.0.0.1:9050 https://check.torproject.org/api/ip
 ## Linux SSH Client over Tor Setup
 
 ## Windows SSH Client over Tor Setup
+
+### Putty
