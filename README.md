@@ -38,7 +38,10 @@ Work in progress. Not everything tested yet.
 > tbd.
 
 ```sh
-sudo cat /var/lib/tor/other_hidden_service/hostname
+# within the container
+sudo cat /var/lib/tor/ssh/hostname
+# from the host
+sudo cat /data/ssh/hostname
 ```
 
 ---
