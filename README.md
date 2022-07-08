@@ -10,7 +10,7 @@ Work in progress. Not everything tested yet.
 
 > last updated: 2022-07-08
 
-## Resources
+## Ressources
 
 - <https://github.com/lncm/docker-tor>
 - <https://github.com/blckbx/ssh_over_tor>
@@ -23,8 +23,10 @@ Work in progress. Not everything tested yet.
 - <https://stackoverflow.com/questions/36865665/open-putty-ssh-connection-over-socks5-proxy-via-command-line?rq=1>
 - <https://stackoverflow.com/questions/67320844/how-open-ssh-can-connect-through-socks5-proxy-on-windows-putty-is-not-an-option?rq=1>
 - <https://www.reddit.com/r/TOR/comments/mou6ks/question_re_tortorifytorsocks_and_windows_os/>
+- How To Install Netcat on Windows <https://www.configserverfirewall.com/windows-10/netcat-windows/>
 - socat <https://github.com/3ndG4me/socat/releases>
-- ncat <https://nmap.org/ncat/>
+- netcat <https://nmap.org/ncat/>
+  - <https://nmap.org/dist/>
 - resistal <https://github.com/ResistalProxy/resistal/>
 
 ## Tor Setup on Linux Server
@@ -69,8 +71,16 @@ curl --socks5 127.0.0.1:9050 https://check.torproject.org/api/ip
 
 ## Linux SSH Client over Tor Setup
 
+### torify
+
 ```sh
 torify ssh username@myonionaddress.onion
+```
+
+### netcat
+
+```sh
+ssh -o ProxyCommand='ncat --proxy-type socks5 --proxy 127.0.0.1:9050 %h %p' username@myonionaddress.onion
 ```
 
 ## Windows SSH Client over Tor Setup
@@ -87,8 +97,9 @@ torify ssh username@myonionaddress.onion
 ### OpenSSH
 
 ```sh
-ssh -o "ProxyCommand=nc -x proxyhost:proxyport %h %p" -p port username@host
-ssh -o "ProxyCommand=nc -x 127.0.0.1:9150 %h %p" -p 22 username@myonionaddress.onion
+ssh -o "ProxyCommand=ncat -x proxyhost:proxyport %h %p" -p port username@host
+ssh -o "ProxyCommand=ncat -x 127.0.0.1:9150 %h %p" -p 22 username@myonionaddress.onion
+ssh -o "ProxyCommand=ncat --proxy 127.0.0.1:9150 --proxy-type socks5 %h %p" -p 22 username@myonionaddress.onion
 ```
 
 > Untested, unclear if this works in the `.ssh/config` file below:
@@ -96,7 +107,7 @@ ssh -o "ProxyCommand=nc -x 127.0.0.1:9150 %h %p" -p 22 username@myonionaddress.o
 ```conf
 Host myhost
   HostName myonionaddress.onion
-     ProxyCommand ncat --proxy localhost:9150 --proxy-type "socks5" %h %p
+     ProxyCommand ncat --proxy localhost:9150 --proxy-type socks5 %h %p
      User username
      Port 22
 ```
