@@ -6,14 +6,15 @@ Docker Setup of local TOR Proxy for remote SSH access.
 
 Tor Version: `0.4.7.8`
 
-Work in progress. Not yet tested.
+Work in progress. Not everything tested yet.
 
-> last updated: 2022-07-07
+> last updated: 2022-07-08
 
 ## Resources
 
 - <https://github.com/lncm/docker-tor>
 - <https://github.com/blckbx/ssh_over_tor>
+- Tutorial - SSH über Tor auf die eigene Node <https://www.youtube.com/watch?v=RhE9SomCT8k>
 
 ### Windows SSH Client over Tor specific
 
@@ -22,11 +23,25 @@ Work in progress. Not yet tested.
 - <https://stackoverflow.com/questions/36865665/open-putty-ssh-connection-over-socks5-proxy-via-command-line?rq=1>
 - <https://stackoverflow.com/questions/67320844/how-open-ssh-can-connect-through-socks5-proxy-on-windows-putty-is-not-an-option?rq=1>
 - <https://www.reddit.com/r/TOR/comments/mou6ks/question_re_tortorifytorsocks_and_windows_os/>
-- <https://github.com/3ndG4me/socat/releases>
+- socat <https://github.com/3ndG4me/socat/releases>
+- ncat <https://nmap.org/ncat/>
+- resistal <https://github.com/ResistalProxy/resistal/>
 
 ## Tor Setup on Linux Server
 
+### Installation
+
 > tbd.
+
+### Get your onion address
+
+> tbd.
+
+```sh
+sudo cat /var/lib/tor/other_hidden_service/hostname
+```
+
+---
 
 ## SSH Setup on Client Side
 
@@ -51,6 +66,36 @@ curl --socks5 127.0.0.1:9050 https://check.torproject.org/api/ip
 
 ## Linux SSH Client over Tor Setup
 
+```sh
+torify ssh username@myonionaddress.onion
+```
+
 ## Windows SSH Client over Tor Setup
 
 ### Putty
+
+- Putty Configuration > Connection > Proxy:
+  - Proxy type: `SOCKS 5`
+  - Proxy hsotname: `127.0.0.1`
+  - Port: `9150`
+- Putty Configuration > Connection > SSH > Tunnels:
+  - Forwarded ports: `L22 127.0.0.1`
+
+### OpenSSH
+
+```sh
+ssh -o "ProxyCommand=nc -x proxyhost:proxyport %h %p" -p port username@host
+ssh -o "ProxyCommand=nc -x 127.0.0.1:9150 %h %p" -p 22 username@myonionaddress.onion
+```
+
+> Untested, unclear if this works in the `.ssh/config` file below:
+
+```conf
+Host myhost
+  HostName myonionaddress.onion
+     ProxyCommand ncat --proxy localhost:9150 --proxy-type "socks5" %h %p
+     User username
+     Port 22
+```
+
+### cmder
