@@ -8,7 +8,7 @@ Tor Version: `0.4.7.8`
 
 Work in progress. Not everything tested yet.
 
-> last updated: 2022-07-08
+> last updated: 2022-07-11
 
 ## Ressources
 
@@ -24,10 +24,13 @@ Work in progress. Not everything tested yet.
 - <https://stackoverflow.com/questions/67320844/how-open-ssh-can-connect-through-socks5-proxy-on-windows-putty-is-not-an-option?rq=1>
 - <https://www.reddit.com/r/TOR/comments/mou6ks/question_re_tortorifytorsocks_and_windows_os/>
 - How To Install Netcat on Windows <https://www.configserverfirewall.com/windows-10/netcat-windows/>
-- socat <https://github.com/3ndG4me/socat/releases>
-- netcat <https://nmap.org/ncat/>
+- `socat`
+  - <https://github.com/3ndG4me/socat/releases>
+- `netcat`
+  - <https://nmap.org/ncat/>
   - <https://nmap.org/dist/>
-- resistal <https://github.com/ResistalProxy/resistal/>
+- `resistal`
+  - <https://github.com/ResistalProxy/resistal/>
 
 ## Tor Setup on Linux Server
 
@@ -113,3 +116,8 @@ Host myhost
 ```
 
 ### cmder
+
+## Tor Client Setup in Docker
+
+- Setup Tor in a Docker Container
+  - <https://sachsenhofer.io/setup-tor-docker-container/>
